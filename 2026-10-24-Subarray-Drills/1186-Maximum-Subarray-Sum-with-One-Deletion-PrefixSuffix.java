@@ -1,29 +1,33 @@
-// LeetCode 1186 — Prefix/suffix maximum-subarray approach
+// LeetCode 1186 — Maximum Subarray Sum with One Deletion
+// Prefix-suffix approach
 // Time: O(n), extra space: O(n).
 class Solution {
     public int maximumSum(int[] arr) {
         int n = arr.length;
-        int[] left = new int[n];
-        int[] right = new int[n];
+        int[] p = new int[n];
+        int[] s = new int[n];
 
-        left[0] = arr[0];
+        p[0] = arr[0];
+        s[n - 1] = arr[n - 1];
+
         for (int i = 1; i < n; i++) {
-            left[i] = Math.max(arr[i], left[i - 1] + arr[i]);
+            p[i] = Math.max(arr[i], arr[i] + p[i - 1]);
         }
 
-        right[n - 1] = arr[n - 1];
         for (int i = n - 2; i >= 0; i--) {
-            right[i] = Math.max(arr[i], arr[i] + right[i + 1]);
+            s[i] = Math.max(arr[i], arr[i] + s[i + 1]);
         }
 
-        int answer = left[0];
-        for (int i = 0; i < n; i++) {
-            answer = Math.max(answer, left[i]); // No deletion
-            if (i > 0 && i < n - 1) {
-                answer = Math.max(answer, left[i - 1] + right[i + 1]);
-            }
+        int ans = p[0];
+
+        for (int nu : p) {
+            ans = Math.max(nu, ans);
         }
 
-        return answer;
+        for (int i = 1; i < n - 1; i++) {
+            ans = Math.max(ans, p[i - 1] + s[i + 1]);
+        }
+
+        return ans;
     }
 }
