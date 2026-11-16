@@ -16,14 +16,15 @@ public class ReverseLinkedListIterative {
     }
 
     public ListNode reverseList(ListNode head) {
+        ListNode cur = head;
+        ListNode front;
         ListNode prev = null;
-        ListNode curr = head;
 
-        while (curr != null) {
-            ListNode nextTemp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nextTemp;
+        while (cur != null) {
+            front = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = front;
         }
 
         return prev;

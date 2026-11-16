@@ -20,9 +20,9 @@ public class ReverseLinkedListRecursive {
             return head;
         }
 
-        ListNode newHead = reverseList(head.next);
+        ListNode nn = reverseList(head.next);
         head.next.next = head;
         head.next = null;
-        return newHead;
+        return nn;
     }
 }
